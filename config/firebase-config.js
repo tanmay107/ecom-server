@@ -7,3 +7,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://fir-auth-ecommerce-9b085-default-rtdb.asia-southeast1.firebasedatabase.app"
 });
+
+const db = admin.firestore();
+
+module.exports = { admin, db };
