@@ -21,5 +21,8 @@ app.use("/api/products", productRouter);
 const orderRouter = require('./routes/orders');
 app.use("/api/orders", orderRouter);
 
+const cartRouter = require('./routes/carts');
+app.use("/api/carts", cartRouter);
+
 
 app.listen(PORT, () => console.log("Up & Running *4000"));
