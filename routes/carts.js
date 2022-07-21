@@ -29,16 +29,17 @@ router.post("/create", async (req, res) => {
 
 router.post("/update", async (req, res) => {
     try {
-        const res = await db.collection('orders').doc(req.body.docid).set(req.body.data);
+        console.log(req.header('Id'))
+        const cartsRes = await db.collection('carts').doc(req.header('Id')).set(req.body, { merge: true });
         return res.status(201).json({ "message": "Upgraded" })
     } catch (e) {
-        return res.status(500).json({ general: "Something went wrong, please try again"});
+        return res.status(500).send(e);
     }
 })
 
 router.post("/delete", async (req,res) => {
     try{
-        const res = await db.collection('orders').doc(req.body.docid).delete();
+        const cartsRes = await db.collection('carts').doc(req.body.docid).delete();
         return res.status(201).json({ "message" : "Deleted" })
     } catch(e) {
         return res.status(500).json({ general: "Something went wrong, please try again"});
