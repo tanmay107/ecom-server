@@ -1,5 +1,5 @@
 const express = require('express');
-const { db } = require('../config/firebase-config')
+const { admin, db } = require('../config/firebase-config')
 const router = express.Router();
 
 router.post('/', async (req, res) => {
@@ -30,7 +30,7 @@ router.post("/create", async (req, res) => {
 router.post("/update", async (req, res) => {
     try {
         console.log(req.header('Id'))
-        const cartsRes = await db.collection('carts').doc(req.header('Id')).set(req.body, { merge: true });
+        const cartsRes = await db.collection('carts').doc(req.header('Id')).update({ cart: admin.firestore.FieldValue.arrayUnion(req.body.cart)});
         console.log("Carts res info ----------------------- ", cartsRes);
         return res.status(201).json({ message: "Updated" })
     } catch (e) {
